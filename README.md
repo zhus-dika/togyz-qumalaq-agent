@@ -50,5 +50,6 @@ Methods:
 - get_action(current_state) - return action
 
 ### 3. Action
+Methods: 
 - init()
 - make_action(current_state, action)
