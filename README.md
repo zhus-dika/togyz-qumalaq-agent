@@ -67,7 +67,7 @@ Methods:
 - `get_action(current_state)` - return `Action`
 
 ### 3. Action
-
+Total num_actions = 9 * 100 (~maximal steps in the game)
 Methods: 
 - `init()` - `[int start_otau, int num_qumalaq]`
 
