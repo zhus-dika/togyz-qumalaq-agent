@@ -34,6 +34,21 @@ Youtube videos -
 
 ## Python Classes
 
-1. Environment
-2. Policy
-3. Action
+### 1. Environment
+   Methods: 
+   
+- init()
+- reset() - reset the game, i.e initial state of the environment 
+- step(current_state, action) - return (reward, new_state, new_action)
+- render(current_state) - plot the state of the environment
+   
+### 2. Policy
+
+Methods: 
+
+- init()
+- get_action(current_state) - return action
+
+### 3. Action
+- init()
+- make_action(current_state, action)
