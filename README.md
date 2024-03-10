@@ -34,22 +34,39 @@ Youtube videos -
 
 ## Python Classes
 
+### 0. State
+Methods:
+- `init()`
+- `get_state()` -
+  `return {
+     #initial state
+     "otaular": [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+     "tuzdyq": [-1, -1],
+     "qazandar": [0, 0]
+  }`
+
+  list _"otaular"_: range(0 - 8) indexes - for _"bastauysh"_ player and range(9 - 17) indexes - for _"qostauysh"_ player
+
+  list _"tuzdyq"_: 0 - index for _"bastauysh"_ player and 1 index - for _"qostauysh"_ player
+  
+  list _"qazandar"_: 0 - for _"bastauysh"_ player and 1 - for _"qostauysh"_ player
+
 ### 1. Environment
    Methods: 
    
-- init()
-- reset() - reset the game, i.e initial state of the environment 
-- step(current_state, action) - return (reward, new_state, new_action)
-- render(current_state) - plot the state of the environment
+- `init()`
+- `reset()` - reset the game, i.e initial state of the environment 
+- `step(current_state, action)` - return `(reward, new_state, new_action)`
+- `render(current_state)` - plot the state of the environment
    
 ### 2. Policy
 
 Methods: 
 
-- init()
-- get_action(current_state) - return action
+- `init()`
+- `get_action(current_state)` - return `action`
 
 ### 3. Action
 Methods: 
-- init()
-- make_action(current_state, action)
+- `init()`
+- `make_action(current_state, action)`
