@@ -26,3 +26,14 @@ Youtube videos -
 21. https://www.youtube.com/watch?v=K268_4llf78
 22. https://www.youtube.com/watch?v=1IWfghT-3HQ
 23. https://www.youtube.com/watch?v=JvyOozHjxII
+
+## Game apps
+- https://www.iggamecenter.com/ru/info/maintoguz - 2 players
+- https://www.playok.com/ru/togyzkumalak/ - 2 players
+- https://play.google.com/store/apps/details?id=kz.enu&hl=kk - 1,2 players
+
+## Python Classes
+
+1. Environment
+2. Policy
+3. Action
