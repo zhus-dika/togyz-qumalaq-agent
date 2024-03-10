@@ -56,7 +56,7 @@ Methods:
    
 - `init()`
 - `reset()` - reset the game, i.e initial state of the environment 
-- `step(current_state, action)` - return `(reward, new_state, new_action)`
+- `step(current_state, action)` - return `(int reward, State new_state, Action new_action)`
 - `render(current_state)` - plot the state of the environment
    
 ### 2. Policy
@@ -64,9 +64,15 @@ Methods:
 Methods: 
 
 - `init()`
-- `get_action(current_state)` - return `action`
+- `get_action(current_state)` - return `Action`
 
 ### 3. Action
+
 Methods: 
-- `init()`
-- `make_action(current_state, action)`
+- `init()` - `[int start_otau, int num_qumalaq]`
+
+  `start_otau` - index of the start cell
+
+  `num_qumalaq` - number of balls in the `start_otau` cell
+- `make_action(State current_state, Action action)`
+  return `State` after the make `action` in `current_state`
