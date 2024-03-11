@@ -56,7 +56,7 @@ Methods:
    
 - `init()`
 - `reset()` - reset the game, i.e initial state of the environment 
-- `step(current_state, action)` - return `(int reward, State new_state, Action new_action)`
+- `step(current_state, action)` - return `(int reward, State new_state)`
 - `render(current_state)` - plot the state of the environment
    
 ### 2. Policy
