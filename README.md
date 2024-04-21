@@ -38,3 +38,7 @@ PettingZoo https://pettingzoo.farama.org/
 ## Self-play training
 
 Tianshou https://tianshou.org/en/stable/index.html#
+
+## Recording some frames: playing two trained DQN agents
+
+Recording some frames: playing two trained DQN agents https://drive.google.com/file/d/1hcGc5CWTM308dK3-yl4sixhslXmm31ZR/view?usp=drive_link (spoiler: Bastaushy will win :monkey:)
