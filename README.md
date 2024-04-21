@@ -1,5 +1,5 @@
 # togyz-qumalaq-agent
-Training an agent to play the game Togyzqumalaq
+Training an agent to play the game Togyzqumalaq https://en.wikipedia.org/wiki/Toguz_korgol
 
 ## Rules of the game
 Youtube videos - 
@@ -32,48 +32,9 @@ Youtube videos -
 - https://www.playok.com/ru/togyzkumalak/ - 2 players
 - https://play.google.com/store/apps/details?id=kz.enu&hl=kk - 1,2 players
 
-## Python Classes
+## Environment 
+PettingZoo https://pettingzoo.farama.org/
 
-### 0. State
-Methods:
-- `init()`
-- `get_state()` -
-  `return {
-     #initial state
-     "otaular": [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
-     "tuzdyq": [-1, -1],
-     "qazandar": [0, 0]
-  }`
+## Self-play training
 
-  list _"otaular"_: range(0 - 8) indexes - for _"bastauysh"_ player and range(9 - 17) indexes - for _"qostauysh"_ player
-
-  list _"tuzdyq"_: 0 - index for _"bastauysh"_ player and 1 index - for _"qostauysh"_ player
-  
-  list _"qazandar"_: 0 - for _"bastauysh"_ player and 1 - for _"qostauysh"_ player
-
-### 1. Environment
-   Methods: 
-   
-- `init()`
-- `reset()` - reset the game, i.e initial state of the environment 
-- `step(current_state, action)` - return `(int reward, State new_state)`
-- `render(current_state)` - plot the state of the environment
-   
-### 2. Policy
-
-Methods: 
-
-- `init()`
-- `get_action(current_state)` - return `Action`
-
-### 3. Action
-Total num_actions = 9 * 100 (~maximal steps in the game)
-
-Methods: 
-- `init()` - `[int start_otau, int num_qumalaq]`
-
-  `start_otau` - index of the start cell
-
-  `num_qumalaq` - number of balls in the `start_otau` cell
-- `make_action(State current_state, Action action)`
-  return `State` after the make `action` in `current_state`
+Tianshou https://tianshou.org/en/stable/index.html#
