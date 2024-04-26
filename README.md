@@ -61,3 +61,5 @@ Tianshou https://tianshou.org/en/stable/index.html#
 ## Recording some frames: playing two trained DQN agents
 
 Recording some frames: playing two trained DQN agents https://drive.google.com/file/d/1hcGc5CWTM308dK3-yl4sixhslXmm31ZR/view?usp=drive_link (spoiler: Bastaushy will win :monkey:)
+
+Recording a game with a stronger agent *models/policy_dqn_256x512x512x256_2.pth* https://drive.google.com/file/d/1Aw_BRzBt-32vHekFi-mt6ZptQclQy9GR/view?usp=sharing
