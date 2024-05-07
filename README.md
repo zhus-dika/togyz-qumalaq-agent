@@ -11,13 +11,13 @@ Training an agent to play the game Togyzqumalaq https://en.wikipedia.org/wiki/To
 
 ## Plan
 
-|# | Point                                        | Date                  | Description                                                                                                          | Results                                  |
-|--|----------------------------------------------|-----------------------|----------------------------------------------------------------------------------------------------------------------|------------------------------------------|
-|1 | Exploring a library to create an environment | 01/04/2024-05/04/2024 | Learn how to write PettingZoo AEC type env https://pettingzoo.farama.org/api/aec/#about-aec                          | Jupyter notebook                         |
-|2 | Learning the game, rules and strategies      | 06/04/2024-10/04/2024 | Writing a multi-agent environment for the game                                                                       | Jupyter notebook                         |
-|3 | Exploring a library to train agents          | 11/04/2024-15/04/2024 | Learn about training agents for multi-agent environment https://tianshou.org/en/stable/01_tutorials/04_tictactoe.html| Jupyter notebook                         |
-|4 | Train agents                                 | 16/04/2024-21/04/2024 | Train DQN agents to play the game                                                                                    | Jupyter notebook, policy models of agents|
-|5 | Implement web app to play with humans        | 22/04/2024-15/05/2024 | Write web service via Fast API or Spring Boot frameworks                                                             | Docker container                         |
+|# | Point                                        | Date                  | Description                                                                                                        | Results                                  |
+|--|----------------------------------------------|-----------------------|--------------------------------------------------------------------------------------------------------------------|------------------------------------------|
+|1 | Exploring a library to create an environment | 01/04/2024-05/04/2024 | Learn how to write PettingZoo AEC type env https://pettingzoo.farama.org/api/aec/#about-aec                        | Jupyter notebook                         |
+|2 | Learning the game, rules and strategies      | 06/04/2024-10/04/2024 | Writing a multi-agent environment for the game                                                                     | Jupyter notebook                         |
+|3 | Exploring a library to train agents          | 11/04/2024-15/04/2024 | Learn about training agents for multi-agent environment https://tianshou.org/en/stable/01_tutorials/04_tictactoe.html | Jupyter notebook                         |
+|4 | Train agents                                 | 16/04/2024-21/04/2024 | Train DQN agents to play the game                                                                                  | Jupyter notebook, policy models of agents|
+|5 | Implement web app to play with humans        | 22/04/2024-15/05/2024 | Write web service via Flask framework                                                                              | Docker container                         |
 
 
 ## Rules of the game in Kazakh
