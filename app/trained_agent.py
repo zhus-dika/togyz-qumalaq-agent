@@ -14,11 +14,13 @@ net = Net(
 
 agent_learned = DQNPolicy(
             model=net,
-            optim = torch.optim.Adam(net.parameters(), lr=1e-4),
+            optim=torch.optim.Adam(net.parameters(), lr=1e-4),
             discount_factor=0.9,
             estimation_step=3,
             target_update_freq=320,
             action_space=env.action_space
         ).to("cuda" if torch.cuda.is_available() else "cpu")
 
-agent_learned.load_state_dict(torch.load(f"./models/policy_dqn_256x512x512x256_{model}.pth"))
+agent_learned.load_state_dict(
+    torch.load(f"./models/policy_dqn_256x512x512x256_{model}.pth")
+)

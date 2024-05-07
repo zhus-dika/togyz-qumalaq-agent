@@ -14,6 +14,7 @@ from tianshou.env.pettingzoo_env import PettingZooEnv
 NUM_ITERS = 400
 PLAYS = {"bastaushy": 0, "qostaushy": 0}
 
+
 def env(render_mode=None):
     """
     The env function often wraps the environment in wrappers by default.
@@ -35,9 +36,6 @@ def env(render_mode=None):
 
 class raw_env(AECEnv):
     """
-    The metadata holds environment constants. From gymnasium, we inherit the "render_modes",
-    metadata which specifies which modes can be put into the render() method.
-    At least human mode should be supported.
     The "name" metadata allows the environment to be pretty printed.
     """
 
@@ -55,12 +53,6 @@ class raw_env(AECEnv):
         - qazandar
         - possible_agents
         - render_mode
-
-        Note: as of v1.18.1, the action_spaces and observation_spaces attributes are deprecated.
-        Spaces should be defined in the action_space() and observation_space() methods.
-        If these methods are not overridden, spaces will be inferred from self.observation_spaces/action_spaces, raising a warning.
-
-        These attributes should not be changed after initialization.
         """
         self.otaular = []
         self.tuzdyq = []
@@ -68,13 +60,14 @@ class raw_env(AECEnv):
         self.direction = []
         self.agents = ["bastaushy", "qostaushy"]
         self.possible_agents = self.agents[:]
-        # optional: we can define the observation and action spaces here as attributes to be used in their corresponding methods
         self.action_spaces = {i: spaces.Discrete(9) for i in self.agents}
         self.observation_spaces = {
             i: spaces.Dict(
                 {
-                    "observation": MultiDiscrete([100] * 18 + [9] * 2 + [82] * 2),
-                    "action_mask": Discrete(9),
+                    "observation":
+                        MultiDiscrete([100] * 18 + [9] * 2 + [82] * 2),
+                    "action_mask":
+                        Discrete(9),
                 }
             )
             for i in self.agents
@@ -91,13 +84,17 @@ class raw_env(AECEnv):
 
     def render(self):
         """
-        Renders the environment. In human mode, it can print to terminal, open
-        up a graphical window, or open up some other display that a human can see and understand.
+        Renders the environment. In human mode,
+        it can print to terminal, open
+        up a graphical window, or open up some
+        other display that
+        a human can see and understand.
         """
         """Renders the environment."""
         if self.render_mode is None:
             gymnasium.logger.warn(
-                "You are calling render method without specifying any render mode."
+                "You are calling render method without "
+                "specifying any render mode."
             )
             return
 
@@ -113,30 +110,38 @@ class raw_env(AECEnv):
 
             for i in range(9):
                 # qostaushy's part
-                plt.scatter(np.repeat(points_bastaushy_x + 25 * i, 5)[:self.otaular[17 - i]], points_bastaushy_y[:self.otaular[17 - i]], marker='o')
+                plt.scatter(
+                    np.repeat(points_bastaushy_x + 25 * i, 5)[:self.otaular[17 - i]], points_bastaushy_y[:self.otaular[17 - i]], marker='o')
                 # horizontal line
                 plt.plot(x, np.repeat(y, len(x)))
                 # vertical lines
                 plt.plot(np.repeat(25 * i - 2, len(x)), np.arange(-7, 5, 12 / len(x)))
                 # bastaushy's part
-                plt.scatter(np.repeat(points_bastaushy_x + 25 * i, 5)[:self.otaular[i]], points_bastaushy_y[:self.otaular[i]] - 6, marker='o')
+                plt.scatter(np.repeat(points_bastaushy_x + 25 * i, 5)[:self.otaular[i]],
+                            points_bastaushy_y[:self.otaular[i]] - 6, marker='o')
 
-            #last vertical line
+            # last vertical line
             plt.plot(np.repeat(25 * 9 - 2, len(x)), np.arange(-7, 5, 12 / len(x)))
 
             for i in range(9):
                 # bastaushy's qumalaqtar
-                plt.text(25 * i + 10, -7, f'{i} ({self.otaular[i]})', **text_kwargs)
+                plt.text(25 * i + 10, -7,
+                         f'{i} ({self.otaular[i]})', **text_kwargs)
                 # qostaushy's qumalaqtar
-                plt.text(25 * i + 10, 5, f'{17 - i} ({self.otaular[17 - i]})', **text_kwargs)
+                plt.text(25 * i + 10, 5,
+                         f'{17 - i} ({self.otaular[17 - i]})', **text_kwargs)
             # bastaushy qazan's qumalaqtar
-            plt.text(230, -4, f'qazan: {self.qazandar[0]}', **text_kwargs)
+            plt.text(230, -4,
+                     f'qazan: {self.qazandar[0]}', **text_kwargs)
             # qostaushy qazan's qumalaqtar
-            plt.text(230, 2, f'qazan: {self.qazandar[1]}', **text_kwargs);
+            plt.text(230, 2,
+                     f'qazan: {self.qazandar[1]}', **text_kwargs)
             # bastaushy tuzdyq's qumalaqtar
-            plt.text(230, -6, f'tuzdyq: {self.tuzdyq[0]}', **text_kwargs)
+            plt.text(230, -6,
+                     f'tuzdyq: {self.tuzdyq[0]}', **text_kwargs)
             # qostaushy tuzdyq's qumalaqtar
-            plt.text(230, 0, f'tuzdyq: {self.tuzdyq[1]}', **text_kwargs);
+            plt.text(230, 0,
+                     f'tuzdyq: {self.tuzdyq[1]}', **text_kwargs)
             plt.show()
         else:
             if self.render_mode == "human":
@@ -147,7 +152,8 @@ class raw_env(AECEnv):
     def _legal_moves(self, agent):
         cur_player = self.possible_agents.index(agent)
         opp_player = (cur_player + 1) % 2
-        return [item for item in range(9 * cur_player, (cur_player + 1) * 9) if self.tuzdyq[opp_player] != item and self.otaular[item] > 0]
+        return [item for item in range(9 * cur_player, (cur_player + 1) * 9)
+                if self.tuzdyq[opp_player] != item and self.otaular[item] > 0]
 
     def observe(self, agent):
         """
@@ -185,9 +191,6 @@ class raw_env(AECEnv):
         - truncations
         - infos
         - agent_selection
-        And must set up the environment so that render(), step(), and observe()
-        can be called without issues.
-        Here it sets up the state dictionary which is used by step() and the observations dictionary which is used by step() and observe()
         """
         self.agents = self.possible_agents[:]
         self.rewards = {agent: 0 for agent in self.agents}
@@ -270,12 +273,14 @@ class raw_env(AECEnv):
             else:
                 last_otau = self.direction[cur_player][(idx_action + num_qumalaq) % 18]
 
-            if last_otau in range(opp_player * 9, (opp_player + 1) * 9) and self.otaular[last_otau] % 2 == 0:
+            if (last_otau in range(opp_player * 9, (opp_player + 1) * 9) and
+                    self.otaular[last_otau] % 2 == 0):
                 reward += self.otaular[last_otau]
                 if self.render_mode == "human":
                     print(f'{self.agent_selection} won {reward}')
                 self.otaular[last_otau] = 0
-            if self.tuzdyq[cur_player] >= 0 and self.otaular[self.tuzdyq[cur_player]] > 0:
+            if (self.tuzdyq[cur_player] >= 0 and
+                    self.otaular[self.tuzdyq[cur_player]] > 0):
                 reward += self.otaular[self.tuzdyq[cur_player]]
                 if self.render_mode == "human":
                     print(f'{self.agent_selection} won tuzdyq {self.otaular[self.tuzdyq[cur_player]]}')
@@ -309,7 +314,9 @@ class raw_env(AECEnv):
         else:
             last_otau = self.direction[cur_player][(idx + num_qumalaq) % 18]
 
-        if last_otau in range(opp_player * 9, (opp_player + 1) * 9) and self.otaular[last_otau] == 3 and last_otau != 17 - cur_player * 9 and abs(last_otau - self.tuzdyq[opp_player]) != 9:
+        if (last_otau in range(opp_player * 9, (opp_player + 1) * 9) and
+                self.otaular[last_otau] == 3 and last_otau != 17 - cur_player * 9 and
+                abs(last_otau - self.tuzdyq[opp_player]) != 9):
             self.tuzdyq[cur_player] = last_otau
             self.otaular[last_otau] = 0
             if self.render_mode == "human":
@@ -322,7 +329,8 @@ class raw_env(AECEnv):
         cur_player = self.possible_agents.index(agent)
         opp_player = (cur_player + 1) % 2
 
-        for idx, i in enumerate(self.otaular[cur_player * 9: (cur_player + 1) * 9]):
+        for idx, i in enumerate(
+                self.otaular[cur_player * 9: (cur_player + 1) * 9]):
             if i > 0 and idx + cur_player * 9 != self.tuzdyq[opp_player]:
                 return False
         if self.render_mode == "human":
@@ -335,10 +343,12 @@ class raw_env(AECEnv):
         if self.qazandar[cur_player] > 81:
             PLAYS[self.agent_selection] += 1
             return True
-        if self.check_atsyrau(self.possible_agents[opp_player]) and self.qazandar[opp_player] <= 81:
+        if (self.check_atsyrau(self.possible_agents[opp_player])
+                and self.qazandar[opp_player] <= 81):
             PLAYS[self.agent_selection] += 1
             return True
         return False
+
 
 def _get_env(render_mode=None):
     """This function is needed to provide callables for DummyVectorEnv."""
@@ -348,9 +358,11 @@ def _get_env(render_mode=None):
         You can find full documentation for these methods
         elsewhere in the developer documentation.
         """
-        internal_render_mode = render_mode if render_mode != "ansi" else "human"
+        internal_render_mode = render_mode \
+            if render_mode != "ansi" else "human"
         env = raw_env(render_mode=internal_render_mode)
-        # This wrapper is only for environments which print results to the terminal
+        # This wrapper is only for environments
+        # which print results to the terminal
         if render_mode == "ansi":
             env = wrappers.CaptureStdoutWrapper(env)
         # this wrapper helps error handling for discrete action spaces
