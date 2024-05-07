@@ -52,4 +52,6 @@ def render(otaular=[9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
     # qostaushy tuzdyq's qumalaqtar
     plt.text(230, 0,
              f'tuzdyq: {tuzdyq[1]}', **text_kwargs)
+    plt.xticks([])
+    plt.yticks([])
     return fig
