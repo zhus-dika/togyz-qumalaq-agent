@@ -5,7 +5,7 @@ import numpy as np
 def render(otaular = [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
            tuzdyq = [-1, -1],
            qazandar = [0, 0]):
-    fig = plt.figure(figsize=(17, 6))
+    fig = plt.figure(figsize=(15, 4))
 
     points_bastaushy_x = np.array([i * 2 for i in range(10)])
     points_bastaushy_y = np.array([i % 5 for i in range(50)])
