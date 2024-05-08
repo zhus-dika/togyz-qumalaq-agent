@@ -23,10 +23,12 @@ ENV_DIRECTORY = "app/store"
 if not os.path.exists(ENV_DIRECTORY):
     os.makedirs(ENV_DIRECTORY)
 
-with open('app/store/env.pkl', 'wb') as outp:
+with open(os.path.join(ENV_DIRECTORY, 'env.pkl'), 'wb') as outp:
     pickle.dump(env, outp, pickle.HIGHEST_PROTOCOL)
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+app.title = '9qumalaq'
+app._favicon = (os.path.join('9qumalaq_agash.jpg'))
 app.layout = dbc.Container([
     html.H1("9qumalaq app", className='mb-2', style={'textAlign': 'center'}),
     dbc.Row([
