@@ -22,5 +22,5 @@ agent_learned = DQNPolicy(
         ).to("cuda" if torch.cuda.is_available() else "cpu")
 
 agent_learned.load_state_dict(
-    torch.load(f"./models/policy_dqn_256x512x512x256_{model}.pth")
+    torch.load(f"./models/qostaushy/policy_dqn_256x512x512x256_{model}.pth")
 )
