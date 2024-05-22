@@ -75,3 +75,6 @@ pip install -r requirements.txt
 python app/app.py
 ```
 
+## Experiments
+
+https://docs.google.com/spreadsheets/d/12MiySvyxko9UPw_rFsr3w9lILuD7jYY2vgqoScxDRZQ/edit?usp=sharing
