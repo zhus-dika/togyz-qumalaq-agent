@@ -60,9 +60,10 @@ Tianshou https://tianshou.org/en/stable/index.html#
 
 ## Recording some frames: playing two trained DQN agents
 
-Recording some frames: playing two trained DQN agents https://drive.google.com/file/d/1hcGc5CWTM308dK3-yl4sixhslXmm31ZR/view?usp=drive_link (spoiler: Bastaushy will win :monkey:)
 
-Recording a game with a stronger agent *models/policy_dqn_256x512x512x256_2.pth* https://drive.google.com/file/d/1Aw_BRzBt-32vHekFi-mt6ZptQclQy9GR/view?usp=sharing
+Recording a game with a stronger agent *models/dqn/curriculum_learning/bastaushy/policy_dqn_512x1024x512_6.pth* vs *models/dqn/curriculum_learning/qostaushy/policy_dqn_512x1024x512_5.pth* ![Alt Text](https://github.com/zhus-dika/togyz-qumalaq-agent/blob/main/data/6vs5.gif)
+
+(spoiler: Qostaushy will win :monkey:)
 
 ## Running guide
 Python version >= 3.11
