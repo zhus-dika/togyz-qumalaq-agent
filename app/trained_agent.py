@@ -3,12 +3,12 @@ from tianshou.utils.net.common import Net
 import torch
 import environment
 
-model = 95
+model = 0
 env = environment._get_env()
 net = Net(
             state_shape=(22,),
             action_shape=env.action_space.shape or env.action_space.n,
-            hidden_sizes=[256, 512, 512, 256],
+            hidden_sizes=[256, 512, 256],
             device="cuda" if torch.cuda.is_available() else "cpu",
         ).to("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -22,5 +22,5 @@ agent_learned = DQNPolicy(
         ).to("cuda" if torch.cuda.is_available() else "cpu")
 
 agent_learned.load_state_dict(
-    torch.load(f"./models/qostaushy/policy_dqn_256x512x512x256_{model}.pth")
+    torch.load(f"../models/dqn/zero-sum/qostaushy/policy_dqn_256x512x256_{model}.pth")
 )
