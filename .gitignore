@@ -7,7 +7,7 @@ __pycache__/
 app/store/
 # C extensions
 *.so
-
+temp/
 # Distribution / packaging
 .Python
 venv/

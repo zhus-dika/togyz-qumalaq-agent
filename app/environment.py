@@ -22,7 +22,7 @@ def env(render_mode=None):
     elsewhere in the developer documentation.
     """
     internal_render_mode = render_mode if render_mode != "ansi" else "human"
-    env = raw_env(render_mode=internal_render_mode)
+    env = TogyzQumalaq(render_mode=internal_render_mode)
     # This wrapper is only for environments which print results to the terminal
     if render_mode == "ansi":
         env = wrappers.CaptureStdoutWrapper(env)
@@ -34,7 +34,7 @@ def env(render_mode=None):
     return env
 
 
-class raw_env(AECEnv):
+class TogyzQumalaq(AECEnv):
     """
     The "name" metadata allows the environment to be pretty printed.
     """
@@ -360,7 +360,7 @@ def _get_env(render_mode=None):
         """
         internal_render_mode = render_mode \
             if render_mode != "ansi" else "human"
-        env = raw_env(render_mode=internal_render_mode)
+        env = TogyzQumalaq(render_mode=internal_render_mode)
         # This wrapper is only for environments
         # which print results to the terminal
         if render_mode == "ansi":
