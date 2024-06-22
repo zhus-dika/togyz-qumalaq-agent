@@ -65,29 +65,29 @@ class Board():
         """Check whether the given player has collected a triplet in any direction;
         @param color (1=white,-1=black)y
         """
-        # env = convertBoard2TogyzQumalaq(self.pieces, color)
-        # cur_player = int((1 - color) / 2)
-        # opp_player = int((cur_player + 1) % 2)
-        # if env.qazandar[cur_player] > 81:
-        #     return True
-        # if (env.check_atsyrau(env.possible_agents[opp_player])
-        #         and env.qazandar[opp_player] <= 81):
-        #     return True
-        # return False
-        cnt = 0
-        if color > 0:
-            for j in range(self.n_y - 1):
-                if self.pieces[0][j] > 0:
-                    cnt += 1
-            if cnt > 81:
-                return True
-        else:
-            for j in range(self.n_y - 1):
-                if self.pieces[0][self.n_y - 1 - j] < 0:
-                    cnt += 1
-            if cnt > 81:
-                return True
+        env = convertBoard2TogyzQumalaq(self.pieces, color)
+        cur_player = int((1 - color) / 2)
+        opp_player = int((cur_player + 1) % 2)
+        if env.qazandar[cur_player] > 81:
+            return True
+        if (env.check_atsyrau(env.possible_agents[opp_player])
+                and env.qazandar[opp_player] <= 81):
+            return True
         return False
+        # cnt = 0
+        # if color > 0:
+        #     for j in range(self.n_y - 1):
+        #         if self.pieces[0][j] > 0:
+        #             cnt += 1
+        #     if cnt > 81:
+        #         return True
+        # else:
+        #     for j in range(self.n_y - 1):
+        #         if self.pieces[0][self.n_y - 1 - j] < 0:
+        #             cnt += 1
+        #     if cnt > 81:
+        #         return True
+        # return False
 
     def execute_move(self, move, player):
         """Perform the given move on the board; 
