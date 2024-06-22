@@ -42,11 +42,10 @@ class TogyzQumalaqGame(Game):
         #     return (board, -player)
         b = Board(self.n_x, self.n_y)
         b.pieces = np.copy(board)
-        # if player < 0:
-        #     b.execute_move(action, -player)
-        # else:
-        #
-        b.execute_move(action, player)
+        if player < 0:
+            b.execute_move(action, -player)
+        else:
+            b.execute_move(action, player)
         #player_name = 'Bastaushy' if player == 1 else 'Qostaushy'
         #print(f'{player_name} makes action {action + 1}')
         return (b.pieces, -player)
