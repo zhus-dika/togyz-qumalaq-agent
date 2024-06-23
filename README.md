@@ -76,6 +76,11 @@ pip install -r requirements.txt
 python app/app.py
 ```
 
+Running tests
+
+```
+python model_based_approach/tests/test_env.py
+```
 ## Experiments
 
 https://docs.google.com/spreadsheets/d/12MiySvyxko9UPw_rFsr3w9lILuD7jYY2vgqoScxDRZQ/edit?usp=sharing

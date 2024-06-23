@@ -148,7 +148,7 @@ class TogyzQumalaqGame(Game):
     def display_board(board):
         n_x = board.shape[0]
         n_y = board.shape[1]
-        for _ in range(n_y + 10):
+        for _ in range(n_y + 12):
             print('=', end="")
         cnt = {1: [], -1: []}
         for i in range(n_x):
@@ -183,7 +183,7 @@ class TogyzQumalaqGame(Game):
             print('|' + str(i), end="")
             print('|' + service_str + cnt_str, end="")
             print("")
-        for _ in range(n_y + 10):
+        for _ in range(n_y + 12):
             print('=', end="")
         print("")
         cnt_full = sum(cnt[1] + cnt[-1])
