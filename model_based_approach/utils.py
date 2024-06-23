@@ -36,9 +36,11 @@ def convertTogyzQumalaq2Board(env):
     for i, otau in enumerate(env.otaular):
         for j in range(otau):
             if i < 9:
-                pieces[i + 1][j] = 1
+                if i != env.tuzdyq[1]:
+                    pieces[i + 1][j] = 1
             else:
-                pieces[i - 8][n_y - 1 - j] = -1
+                if i != env.tuzdyq[0] - 9:
+                    pieces[i - 8][n_y - 1 - j] = -1
     # ===================
     # fill pieces by tuzdyq info
     if env.tuzdyq[0] > 0:
@@ -47,9 +49,15 @@ def convertTogyzQumalaq2Board(env):
         pieces[env.tuzdyq[1] + 1][0] = -1
         # ===================
     # fill pieces by qazandar info
-    for j in range(env.qazandar[0]):
-        pieces[0][j] = 1
-    for j in range(env.qazandar[1]):
+    stones = env.qazandar[0]
+    if env.tuzdyq[0] > 0:
+        stones += env.otaular[env.tuzdyq[0]]
+    for j in range(stones):
+            pieces[0][j] = 1
+    stones = env.qazandar[1]
+    if env.tuzdyq[1] > 0:
+        stones += env.otaular[env.tuzdyq[1]]
+    for j in range(stones):
         pieces[0][n_y - 1 - j] = -1
     return pieces
 def convertBoard2TogyzQumalaq(board_pieces, player):

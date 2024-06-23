@@ -262,7 +262,7 @@ class TogyzQumalaqEnv(AECEnv):
                 i += 1
         # check tuzdyq & add rewards to qazandar
         reward = 0
-        if self.check_tuzdyq(self.agent_selection, action, num_qumalaq):
+        if self.tuzdyq[cur_player] < 0 and self.check_tuzdyq(self.agent_selection, action, num_qumalaq):
             reward += 3
             if self.render_mode == "human":
                 print(f'{self.agent_selection} won tuzdyq {reward}')

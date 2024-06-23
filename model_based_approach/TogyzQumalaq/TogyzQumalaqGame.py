@@ -42,10 +42,7 @@ class TogyzQumalaqGame(Game):
         #     return (board, -player)
         b = Board(self.n_x, self.n_y)
         b.pieces = np.copy(board)
-        if player < 0:
-            b.execute_move(action, -player)
-        else:
-            b.execute_move(action, player)
+        b.execute_move(action, player)
         #player_name = 'Bastaushy' if player == 1 else 'Qostaushy'
         #print(f'{player_name} makes action {action + 1}')
         return (b.pieces, -player)
@@ -70,13 +67,13 @@ class TogyzQumalaqGame(Game):
         b.pieces = np.copy(board)
 
         if b.is_win(player):
-            return 1
+            return player
         if b.is_win(-player):
-            return -1
+            return -player
         if b.has_legal_moves(player):
             return 0
         # draw has a very little value
-        return -player
+        return 1e-04
 
     def getCanonicalForm(self, board, player):
         # return state if player==1, else return -state if player==-1
@@ -151,10 +148,27 @@ class TogyzQumalaqGame(Game):
     def display_board(board):
         n_x = board.shape[0]
         n_y = board.shape[1]
-        for _ in range(n_y):
+        for _ in range(n_y + 10):
             print('=', end="")
+        cnt = {1: [], -1: []}
+        for i in range(n_x):
+            cnt_loc1 = 0
+            cnt_loc2 = 0
+            for j in range(n_y):
+                if board[i][j] > 0 and j != n_y - 1:
+                    cnt_loc1 += 1
+                elif board[i][j] < 0 and j != 0:
+                    cnt_loc2 += 1
+            cnt[1].append(cnt_loc1)
+            cnt[-1].append(cnt_loc2)
         print("")
         for i in range(n_x):
+            cnt_str = str(cnt[1][i])
+            service_str = ''
+            for _ in range(3 - len(cnt_str)):
+                service_str += '0'
+            print(service_str + cnt_str + '|', end="")
+            print(str(i) + '|', end="")
             for j in range(n_y):
                 if board[i][j] > 0:
                     print('X', end="")
@@ -162,10 +176,18 @@ class TogyzQumalaqGame(Game):
                     print('O', end="")
                 else:
                     print('-', end="")
+            cnt_str = str(cnt[-1][i])
+            service_str = ''
+            for _ in range(3 - len(cnt_str)):
+                service_str += '0'
+            print('|' + str(i), end="")
+            print('|' + service_str + cnt_str, end="")
             print("")
-        for _ in range(n_y):
+        for _ in range(n_y + 10):
             print('=', end="")
         print("")
+        cnt_full = sum(cnt[1] + cnt[-1])
+        print(f'Full board stones: {cnt_full}')
     # @staticmethod
     # def display(board):
     #     n = board.shape[0]
