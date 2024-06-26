@@ -71,7 +71,7 @@ class Board():
         if env.qazandar[cur_player] > 81:
             return True
         if (env.check_atsyrau(env.possible_agents[opp_player])
-                and env.qazandar[opp_player] <= 81):
+                and env.qazandar[opp_player] < 81):
             return True
         return False
         # cnt = 0

@@ -343,7 +343,7 @@ class TogyzQumalaqEnv(AECEnv):
             PLAYS[self.agent_selection] += 1
             return True
         if (self.check_atsyrau(self.possible_agents[opp_player])
-                and self.qazandar[opp_player] <= 81):
+                and self.qazandar[opp_player] < 81):
             PLAYS[self.agent_selection] += 1
             return True
         return False

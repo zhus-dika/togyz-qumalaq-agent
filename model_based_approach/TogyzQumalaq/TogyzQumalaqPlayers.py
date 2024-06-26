@@ -31,10 +31,10 @@ class HumanTogyzQumalaqPlayer():
 
         while True:
             # Python 3.x
-            a = input()
+            a = int(input())
             # Python 2.x
             # a = raw_input()
-            if a in valid_moves:
+            if valid_moves[a]:
                 break
             else:
                 print('Invalid move')
