@@ -68,19 +68,37 @@ Recording a game with a stronger agents *models/dqn/curriculum_learning/bastaush
 ## Running guide
 Python version >= 3.11
 
+Installing packages
+
 ```
 pip install -r requirements.txt
 ```
+
+Running web app
 
 ```
 python app/app.py
 ```
 
-Running tests
+Running tests for environment
 
 ```
 python model_based_approach/tests/test_env.py
 ```
+
+Training agents
+
+```
+python model_based_approach/main.py
+```
+
+Playing human vs trained agent
+
+```
+python model_based_approach/pit.py
+```
+
+
 ## Experiments
 
 https://docs.google.com/spreadsheets/d/12MiySvyxko9UPw_rFsr3w9lILuD7jYY2vgqoScxDRZQ/edit?usp=sharing
