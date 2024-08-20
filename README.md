@@ -1,8 +1,8 @@
 # togyz-qumalaq-agent
 
-Source Python code for the paper *Applications of Self-Play of Reinforcement Learning Technique for Competitive Environments in Kazakh National Games*
+Source Python code for the paper *Applications of the Reinforcement Learning Technique Self-Play for Competitive Environments in Kazakh National Games*
 
-**Authors**: Dinara Zhussupova, Mukhtarbai Otelbaev
+**Authors**: Dinara Zhussupova, Mukhtarbay Otelbaev
 
 Training an agent to play the game Togyzqumalaq https://en.wikipedia.org/wiki/Toguz_korgol
 
