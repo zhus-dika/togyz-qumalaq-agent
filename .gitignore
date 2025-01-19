@@ -8,7 +8,7 @@ app/store/
 # C extensions
 *.so
 temp/
-models/mcts
+trained_models/
 # Distribution / packaging
 .Python
 venv/
