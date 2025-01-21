@@ -15,26 +15,6 @@ NUM_ITERS = 400
 PLAYS = {"bastaushy": 0, "qostaushy": 0}
 
 
-def env(render_mode=None):
-    """
-    The env function often wraps the environment in wrappers by default.
-    You can find full documentation for these methods
-    elsewhere in the developer documentation.
-    """
-    internal_render_mode = render_mode \
-        if render_mode != "ansi" else "human"
-    env = TogyzQumalaqEnv(render_mode=internal_render_mode)
-    # This wrapper is only for environments
-    # which print results to the terminal
-    if render_mode == "ansi":
-        env = wrappers.CaptureStdoutWrapper(env)
-    # this wrapper helps error handling for discrete action spaces
-    env = wrappers.AssertOutOfBoundsWrapper(env)
-    # Provides a wide vareity of helpful user errors
-    # Strongly recommended
-    env = wrappers.OrderEnforcingWrapper(env)
-    return env
-
 class TogyzQumalaqEnv(AECEnv):
     """
     The "name" metadata allows the environment to be pretty printed.
@@ -66,7 +46,7 @@ class TogyzQumalaqEnv(AECEnv):
             i: spaces.Dict(
                 {
                     "observation":
-                        MultiDiscrete([100] * 18 + [10] * 2 + [162] * 2),
+                        MultiDiscrete([100] * 18 + [10] * 2 + [162] * 2 + [2]),
                     "action_mask":
                         Discrete(9),
                 }
@@ -213,7 +193,7 @@ class TogyzQumalaqEnv(AECEnv):
         self.infos = {agent: {} for agent in self.agents}
         self.num_moves = 0
         observation = tuple(
-            self.otaular + self.tuzdyq + self.qazandar
+            self.otaular + self.tuzdyq + self.qazandar + [0]
         )
         self.observations = {agent: observation for agent in self.agents}
         """
@@ -295,12 +275,21 @@ class TogyzQumalaqEnv(AECEnv):
                 if self.render_mode == "human":
                     print(f'{self.agent_selection} won {reward}')
                 self.otaular[last_otau] = 0
+            # add rewards for current player's tuzdyq
             if (self.tuzdyq[cur_player] >= 0 and
                     self.otaular[self.tuzdyq[cur_player]] > 0):
                 reward += self.otaular[self.tuzdyq[cur_player]]
                 if self.render_mode == "human":
                     print(f'{self.agent_selection} won tuzdyq {self.otaular[self.tuzdyq[cur_player]]}')
                 self.otaular[self.tuzdyq[cur_player]] = 0
+            # add rewards for opponent's tuzdyq
+            if (self.tuzdyq[opp_player] >= 0 and
+                    self.otaular[self.tuzdyq[opp_player]] > 0):
+                self.rewards[self.agent_selection] -= self.otaular[self.tuzdyq[opp_player]]
+                self.rewards[self.possible_agents[opp_player]] += self.otaular[self.tuzdyq[opp_player]]
+                self.qazandar[opp_player] += self.otaular[self.tuzdyq[opp_player]]
+                self.otaular[self.tuzdyq[opp_player]] = 0
+
         if self.render_mode == "human":
             print(f'{self.agent_selection} won total {reward}')
         self.qazandar[cur_player] += reward

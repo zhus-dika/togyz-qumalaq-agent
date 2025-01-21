@@ -23,7 +23,7 @@ class dotdict(dict):
     def __getattr__(self, name):
         return self[name]
 
-def convertTogyzQumalaq2Board(env):
+def convertTogyzQumalaq2Board(env, player):
     '''
     :param env: TogyzQumalaq PettingZoo environment
     :return: board - numpy array [2, 162, 162] sizes
@@ -43,31 +43,39 @@ def convertTogyzQumalaq2Board(env):
                     pieces[i - 8][n_y - 1 - j] = -1
     # ===================
     # fill pieces by tuzdyq info
+
     if env.tuzdyq[0] > 0:
         pieces[env.tuzdyq[0] - 8][n_y - 1] = 1
     if env.tuzdyq[1] > 0:
         pieces[env.tuzdyq[1] + 1][0] = -1
-        # ===================
+
+    # ===================
     # fill pieces by qazandar info
     stones = env.qazandar[0]
-    if env.tuzdyq[0] > 0:
-        stones += env.otaular[env.tuzdyq[0]]
+    if player == -1:
+        if env.tuzdyq[0] > 0:
+            stones += env.otaular[env.tuzdyq[0]]
     for j in range(stones):
             pieces[0][j] = 1
     stones = env.qazandar[1]
-    if env.tuzdyq[1] > 0:
-        stones += env.otaular[env.tuzdyq[1]]
+    if player == 1:
+        if env.tuzdyq[1] > 0:
+            stones += env.otaular[env.tuzdyq[1]]
     for j in range(stones):
         pieces[0][n_y - 1 - j] = -1
     return pieces
+    
 def convertBoard2TogyzQumalaq(board_pieces, player):
+    total_qumalaqs = 0
     env = TogyzQumalaqEnv()
     env.reset()
-    env.agent_selection = 'bastaushy' if player == 1 else 'qostaushy'
+    if player == -1:
+        env.agent_selection = env._agent_selector.next()
     # ==================
     # fill qazandar
     n_x = board_pieces.shape[0]
     n_y = board_pieces.shape[1]
+
     for j in range(n_y):
         if board_pieces[0][j] > 0:
             env.qazandar[0] += 1
@@ -78,17 +86,19 @@ def convertBoard2TogyzQumalaq(board_pieces, player):
     for i in range(1, n_x):
         if board_pieces[i][0] < 0:
             env.tuzdyq[1] = i - 1
+
         if board_pieces[i][n_y - 1] > 0:
             env.tuzdyq[0] = i + 8
+
     for i in range(1, n_x):
         cnt = 0
-        for j in range(n_y - 1):
-            if board_pieces[i][j] > 0:
-                cnt += 1
+        while board_pieces[i][cnt] > 0:
+            cnt += 1
         env.otaular[i - 1] = cnt
         cnt = 0
-        for j in range(n_y - 1):
-            if board_pieces[i][n_y - 1 - j] < 0:
+        while board_pieces[i][n_y - 1 - cnt] < 0:
                 cnt += 1
         env.otaular[i + 8] = cnt
+    total_qumalaqs += sum(env.otaular)
+    total_qumalaqs += sum(env.qazandar)
     return env

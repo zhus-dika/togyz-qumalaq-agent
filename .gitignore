@@ -11,7 +11,7 @@ temp/
 trained_models/
 # Distribution / packaging
 .Python
-venv/
+model_based_approach/TogyzQumalaq/.ipynb_checkpoints
 logs/
 .idea
 .virtual_documents/

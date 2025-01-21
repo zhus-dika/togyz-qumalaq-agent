@@ -45,6 +45,7 @@ class TogyzQumalaqGame(Game):
         b.execute_move(action, player)
         #player_name = 'Bastaushy' if player == 1 else 'Qostaushy'
         #print(f'{player_name} makes action {action + 1}')
+        #print('player from getNextState', player)
         return (b.pieces, -player)
 
     def getValidMoves(self, board, player):

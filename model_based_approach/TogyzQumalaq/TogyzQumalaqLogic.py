@@ -95,4 +95,4 @@ class Board():
         """
         env = convertBoard2TogyzQumalaq(self.pieces, player)
         env.step(move)
-        self.pieces = convertTogyzQumalaq2Board(env)
+        self.pieces = convertTogyzQumalaq2Board(env, player)
