@@ -23,7 +23,7 @@ class dotdict(dict):
     def __getattr__(self, name):
         return self[name]
 
-def convertTogyzQumalaq2Board(env, player):
+def convertTogyzQumalaq2Board(env):
     '''
     :param env: TogyzQumalaq PettingZoo environment
     :return: board - numpy array [2, 162, 162] sizes
@@ -52,15 +52,15 @@ def convertTogyzQumalaq2Board(env, player):
     # ===================
     # fill pieces by qazandar info
     stones = env.qazandar[0]
-    if player == -1:
-        if env.tuzdyq[0] > 0:
-            stones += env.otaular[env.tuzdyq[0]]
+    # if player == -1:
+    #     if env.tuzdyq[0] > 0:
+    #         stones += env.otaular[env.tuzdyq[0]]
     for j in range(stones):
             pieces[0][j] = 1
     stones = env.qazandar[1]
-    if player == 1:
-        if env.tuzdyq[1] > 0:
-            stones += env.otaular[env.tuzdyq[1]]
+    # if player == 1:
+    #     if env.tuzdyq[1] > 0:
+    #         stones += env.otaular[env.tuzdyq[1]]
     for j in range(stones):
         pieces[0][n_y - 1 - j] = -1
     return pieces
@@ -76,7 +76,7 @@ def convertBoard2TogyzQumalaq(board_pieces, player):
     n_x = board_pieces.shape[0]
     n_y = board_pieces.shape[1]
 
-    for j in range(n_y):
+    for j in range(n_y - 1):
         if board_pieces[0][j] > 0:
             env.qazandar[0] += 1
         if board_pieces[0][n_y - 1 - j] < 0:

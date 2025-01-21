@@ -324,7 +324,7 @@ class TogyzQumalaqEnv(AECEnv):
             total_qumalaqs += i
         for i in self.qazandar:
             total_qumalaqs += i
-        assert total_qumalaqs == 162, f"Error: Total qumalaqs is not equal to 162: {total_qumalaqs}"
+        assert total_qumalaqs == 162, f"Error: Total qumalaqs is not equal to 162: {total_qumalaqs} observation: otaular - {self.otaular}, qazandar - {self.qazandar}, tuzdyq - {self.tuzdyq}"
         if self.render_mode == "human":
             self.render()
 

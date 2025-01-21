@@ -44,7 +44,7 @@ sys.path.append('../../model_based_approach/TogyzQumalaq')
 from TogyzQumalaqLogic import Board
 from TogyzQumalaqGame import TogyzQumalaqGame
 
-for _ in range(5):
+for _ in range(10):
     game = TogyzQumalaqGame(10, 162)
     board = Board()
 
