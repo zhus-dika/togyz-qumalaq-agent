@@ -145,6 +145,7 @@ class TogyzQumalaqGame(Game):
             # ))
             # fig.show()
 
+
     @staticmethod
     def display_board(board):
         n_x = board.shape[0]

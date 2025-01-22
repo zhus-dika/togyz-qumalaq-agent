@@ -89,6 +89,24 @@ class Board():
         #         return True
         # return False
 
+
+    def calculate_qumalaqs(self):
+        n_x = self.pieces.shape[0]
+        n_y = self.pieces.shape[1]
+        cnt = {1: [], -1: []}
+        for i in range(n_x):
+            cnt_loc1 = 0
+            cnt_loc2 = 0
+            for j in range(n_y):
+                if self.pieces[i][j] > 0 and j != n_y - 1:
+                    cnt_loc1 += 1
+                elif self.pieces[i][j] < 0 and j != 0:
+                    cnt_loc2 += 1
+            cnt[1].append(cnt_loc1)
+            cnt[-1].append(cnt_loc2)
+        cnt_full = sum(cnt[1] + cnt[-1])
+        return cnt_full
+
     def execute_move(self, move, player):
         """Perform the given move on the board; 
         color gives the color pf the piece to play (1=white,-1=black)
