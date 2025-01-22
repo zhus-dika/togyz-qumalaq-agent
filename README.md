@@ -71,6 +71,14 @@ Running tests for environment
 
 ```
 python model_based_approach/tests/test_env.py
+
+python model_based_approach/tests/test_natural_env.py
+```
+
+Runnning game with random playesr for testing asserts in main codes
+
+```
+python model_based_approach/tests/test_game.py
 ```
 
 Training agents
