@@ -3,7 +3,6 @@ import numpy as np
 from gymnasium.spaces import Discrete, MultiDiscrete
 from gymnasium import spaces
 
-from IPython.display import clear_output
 import time
 from pettingzoo import AECEnv
 from pettingzoo.utils import agent_selector, wrappers
