@@ -24,12 +24,13 @@ hp = HumanTogyzQumalaqPlayer(game=g, n_x=10, n_y=162).play
 # nnet players
 n1 = NNet(g)
 n1.load_checkpoint('../trained_models/mcts/','best.pth.tar')
-args1 = dotdict({'numMCTSSims': 50, 'cpuct':1.0})
+args1 = dotdict({'numMCTSSims': 50, 'cpuct':1.0}) # numMCTSSims - Number of games moves for MCTS to simulate
 mcts1 = MCTS(g, n1, args1)
 n1p = lambda x: np.argmax(mcts1.getActionProb(x, temp=0))
 
-player2 = hp
-
+#player2 = hp
+player1 = rp
+player2 = rp
 arena = Arena.Arena(n1p, player2, g, display=TogyzQumalaqGame.display_board)
-
-print(arena.playGames(2, verbose=True))
+#arena = Arena.Arena(player1, player2, g, display=TogyzQumalaqGame.display_board)
+print(arena.playGames(8, verbose=True))
