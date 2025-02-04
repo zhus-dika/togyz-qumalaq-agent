@@ -47,8 +47,7 @@ Tianshou https://tianshou.org/en/stable/index.html#
 
 ## Recording some frames: playing two trained DQN agents
 
-
-Recording a game with a stronger agents *models/dqn/curriculum_learning/bastaushy/policy_dqn_512x1024x512_6.pth* **vs** *models/dqn/curriculum_learning/qostaushy/policy_dqn_512x1024x512_5.pth* ![Alt Text](https://github.com/zhus-dika/togyz-qumalaq-agent/blob/main/data/6vs5.gif)
+![Alt Text](https://github.com/zhus-dika/togyz-qumalaq-agent/blob/main/data/6vs5.gif)
 
 (spoiler: Qostaushy will win :monkey:)
 
