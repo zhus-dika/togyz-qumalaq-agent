@@ -1,10 +1,6 @@
-import os
-import time
-import sys
-
-import numpy as np
 from tqdm import tqdm
-
+import sys
+import os, time
 sys.path.append('..')
 from utils import *
 from TogyzQumalaq.NeuralNet import NeuralNet
@@ -15,12 +11,12 @@ import torch.optim as optim
 from TogyzQumalaq.pytorch.TogyzQumalaqNNet import TogyzQumalaqNNet as togyzqnnet
 
 args = dotdict({
-    'lr': 0.0001,
+    'lr': 0.0005,
     'dropout': 0.3,
-    'epochs': 15,
-    'batch_size': 64,
+    'epochs': 20,
+    'batch_size': 128,
     'cuda': torch.cuda.is_available(),
-    'num_channels': 1024,
+    'num_channels': 512,
 })
 
 
@@ -40,6 +36,7 @@ class NNetWrapper(NeuralNet):
         optimizer = optim.Adam(self.nnet.parameters())
 
         for epoch in range(args.epochs):
+            print('cuda is available:', args['cuda'])
             print('EPOCH ::: ' + str(epoch + 1))
             self.nnet.train()
             pi_losses = AverageMeter()
