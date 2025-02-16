@@ -11,7 +11,7 @@ from model_based_approach.TogyzQumalaq.TogyzQumalaqLogic import Board
 from model_based_approach.TogyzQumalaq.TogyzQumalaqGame import TogyzQumalaqGame
 
 for _ in range(200):
-    game = TogyzQumalaqGame(10, 34)
+    game = TogyzQumalaqGame(10, 32)
     board = Board()
 
     player = 1

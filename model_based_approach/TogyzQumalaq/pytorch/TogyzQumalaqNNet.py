@@ -110,14 +110,14 @@ class TogyzQumalaqNNet(nn.Module):
 
         # FC layers
         reduced_x, reduced_y = self.board_x // 2, self.board_y // 2  # After pooling
-        self.fc1 = nn.Linear(num_channels * reduced_x * reduced_y, 1024)
-        self.fc_bn1 = nn.BatchNorm1d(1024)
+        self.fc1 = nn.Linear(num_channels * reduced_x * reduced_y, 512)
+        self.fc_bn1 = nn.BatchNorm1d(512)
 
-        self.fc2 = nn.Linear(1024, 512)
-        self.fc_bn2 = nn.BatchNorm1d(512)
+        self.fc2 = nn.Linear(512, 256)
+        self.fc_bn2 = nn.BatchNorm1d(256)
 
-        self.fc3 = nn.Linear(512, self.action_size)  # Policy
-        self.fc4 = nn.Linear(512, 1)  # Position's estimation
+        self.fc3 = nn.Linear(256, self.action_size)  # Policy
+        self.fc4 = nn.Linear(256, 1)  # Position's estimation
 
     def forward(self, s):
         s = s.view(-1, 1, self.board_x, self.board_y)

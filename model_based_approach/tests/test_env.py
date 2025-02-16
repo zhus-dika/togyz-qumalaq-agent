@@ -10,7 +10,7 @@ class TestListElements(unittest.TestCase):
     def test_states(self):
         #============================================
         # TEST #1
-        game = TogyzQumalaqGame(10, 34)
+        game = TogyzQumalaqGame(10, 32)
         board = Board()
         moves = {1: [], -1: []}
         player = 1
@@ -41,7 +41,7 @@ class TestListElements(unittest.TestCase):
         self.assertEqual(env.qazandar, qazandar_test)
         #============================================
         # TEST #2
-        game = TogyzQumalaqGame(10, 34)
+        game = TogyzQumalaqGame(10, 32)
         board = Board()
         moves = {1: [], -1: []}
         player = 1
@@ -73,7 +73,7 @@ class TestListElements(unittest.TestCase):
 
         #============================================
         # TEST #3
-        game = TogyzQumalaqGame(10, 34)
+        game = TogyzQumalaqGame(10, 32)
         board = Board()
         moves = {1: [], -1: []}
         player = 1
@@ -108,7 +108,7 @@ class TestListElements(unittest.TestCase):
 
         # ============================================
         # TEST #1
-        game = TogyzQumalaqGame(10, 34)
+        game = TogyzQumalaqGame(10, 32)
         board = Board()
         moves = {1: [], -1: []}
         player = 1
@@ -136,7 +136,7 @@ class TestListElements(unittest.TestCase):
 
         # ============================================
         # TEST #2
-        game = TogyzQumalaqGame(10, 34)
+        game = TogyzQumalaqGame(10, 32)
         board = Board()
         moves = {1: [], -1: []}
         player = 1
@@ -183,7 +183,7 @@ class TestListElements(unittest.TestCase):
         	7,0,3,4,4,6,6,5,5,1,
         	6,1,7,6,7,2,8,5,8,8,
         	0,8,0,2]
-        game = TogyzQumalaqGame(10, 34)
+        game = TogyzQumalaqGame(10, 32)
         board = Board()
         moves = {1: [], -1: []}
         player = 1
@@ -222,7 +222,7 @@ class TestListElements(unittest.TestCase):
                 7, 4, 0, 2, 3, 3, 8, 7, 0, 8,
                 6, 4, 1, 5, 0, 6, 7, 5, 8, 8,
                 0, 6, 2, 7, 2, 7, 0, 8, 1, 8]
-        game = TogyzQumalaqGame(10, 34)
+        game = TogyzQumalaqGame(10, 32)
         board = Board()
         moves = {1: [], -1: []}
         player = 1

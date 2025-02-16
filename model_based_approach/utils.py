@@ -34,7 +34,7 @@ def convertTogyzQumalaq2Board(env):
     '''
     total_qumalaqs = 0
     n_x = 10
-    n_y = 34
+    n_y = 32
     pieces = np.zeros((n_x, n_y))
     # ===================
     # fill pieces by otaular info

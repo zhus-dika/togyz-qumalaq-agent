@@ -13,11 +13,11 @@ use this script to play any two agents against each other, or play manually with
 any agent.
 """
 
-g = TogyzQumalaqGame(10, 34)
+g = TogyzQumalaqGame(10, 32)
 
 # all players
 rp = RandomPlayer(g).play
-hp = HumanTogyzQumalaqPlayer(game=g, n_x=10, n_y=34).play
+hp = HumanTogyzQumalaqPlayer(game=g, n_x=10, n_y=32).play
 
 
 

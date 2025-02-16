@@ -20,7 +20,7 @@ Based on the board for the game of Othello by Eric P. Nichols.
 
 class Board():
 
-    def __init__(self, n_x=10, n_y=34):
+    def __init__(self, n_x=10, n_y=32):
         "Set up initial board configuration."
         self.players = [1, -1]
         self.n_x = n_x
