@@ -9,9 +9,11 @@ import plotly.graph_objects as go
 
 class TogyzQumalaqGame(Game):
     square_content = {
-        -1: "X",
+        -1: "x",
         +0: "-",
-        +1: "O"
+        +1: "o",
+        -10: "X",
+        +10: "O"
     }
 
     @staticmethod
@@ -80,27 +82,27 @@ class TogyzQumalaqGame(Game):
         # return state if player==1, else return -state if player==-1
         return player * board[:, ::player]
 
+
     def getSymmetries(self, board, pi):
-        # mirror, rotational
-        # pi_board = np.reshape(pi[:-1], (self.n_x, self.n_y, self.n_z))
-        # l = []
-        # newB = np.reshape(board, (self.n * self.n, self.n))
-        # newPi = pi_board
-        # for i in range(1, 5):
-        #
-        #     for z in [True, False]:
-        #         for j in [True, False]:
-        #             if j:
-        #                 newB = np.fliplr(newB)
-        #                 newPi = np.fliplr(newPi)
-        #             if z:
-        #                 newB = np.flipud(newB)
-        #                 newPi = np.flipud(newPi)
-        #
-        #             newB = np.reshape(newB, (self.n, self.n, self.n))
-        #             newPi = np.reshape(newPi, (self.n, self.n, self.n))
-        #             l += [(newB, list(newPi.ravel()) + [pi[-1]])]
-        return [(board, pi)]#, (board[:, ::-1], pi[::-1])]
+        """
+        Полностью отражает доску тогызкумалақ относительно центральной вертикальной оси.
+
+        Args:
+            board (np.array): Игровая доска (10×162).
+            pi (list): Политика (распределение вероятностей ходов), длина 9.
+
+        Returns:
+            list: [(отраженная доска, `pi`)]
+        """
+        l = [(board, pi)]  # Добавляем оригинальную доску
+
+        # Полностью отражаем доску по вертикальной оси
+        mirrored_board = np.fliplr(board) * -1
+
+        # pi не изменяется
+        l.append((mirrored_board, pi))
+
+        return l
 
     def stringRepresentation(self, board):
         # numpy array (canonical board)
@@ -131,19 +133,6 @@ class TogyzQumalaqGame(Game):
             ax.scatter(x0_points, y0_points, s=2, label='Bastaushy points')
             ax.scatter(x1_points, y1_points, s=2, label='Qostaushy points')
             ax.legend()
-        #else:
-            # fig = go.Figure()
-            # fig.add_trace(go.Scatter3d(
-            #     x=x0_points, y=y0_points,
-            #     mode='markers',
-            #     marker_color='rgba(152, 0, 0, .8)'
-            # ))
-            # fig.add_trace(go.Scatter3d(
-            #     x=x1_points, y=y1_points,
-            #     mode='markers',
-            #     marker_color='rgba(255, 182, 193, .9)'
-            # ))
-            # fig.show()
 
 
     @staticmethod
@@ -158,27 +147,25 @@ class TogyzQumalaqGame(Game):
             cnt_loc2 = 0
             for j in range(n_y):
                 if board[i][j] > 0 and j != n_y - 1:
-                    cnt_loc1 += 1
+                    cnt_loc1 += board[i][j]
                 elif board[i][j] < 0 and j != 0:
-                    cnt_loc2 += 1
+                    cnt_loc2 += - board[i][j]
             cnt[1].append(cnt_loc1)
             cnt[-1].append(cnt_loc2)
         print("")
         for i in range(n_x):
-            cnt_str = str(cnt[1][i])
+            cnt_str = str(int(cnt[1][i]))
             service_str = ''
             for _ in range(3 - len(cnt_str)):
                 service_str += '0'
             print(service_str + cnt_str + '|', end="")
             print(str(i) + '|', end="")
             for j in range(n_y):
-                if board[i][j] > 0:
-                    print('X', end="")
-                elif board[i][j] < 0:
-                    print('O', end="")
+                if board[i][j] != 0:
+                    print(TogyzQumalaqGame.square_content[board[i][j]], end="")
                 else:
                     print('-', end="")
-            cnt_str = str(cnt[-1][i])
+            cnt_str = str(int(cnt[-1][i]))
             service_str = ''
             for _ in range(3 - len(cnt_str)):
                 service_str += '0'

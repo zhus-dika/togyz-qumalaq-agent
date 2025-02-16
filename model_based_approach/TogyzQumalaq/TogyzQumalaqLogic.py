@@ -20,7 +20,7 @@ Based on the board for the game of Othello by Eric P. Nichols.
 
 class Board():
 
-    def __init__(self, n_x=10, n_y=162):
+    def __init__(self, n_x=10, n_y=34):
         "Set up initial board configuration."
         self.players = [1, -1]
         self.n_x = n_x
@@ -99,9 +99,9 @@ class Board():
             cnt_loc2 = 0
             for j in range(n_y):
                 if self.pieces[i][j] > 0 and j != n_y - 1:
-                    cnt_loc1 += 1
+                    cnt_loc1 += self.pieces[i][j]
                 elif self.pieces[i][j] < 0 and j != 0:
-                    cnt_loc2 += 1
+                    cnt_loc2 += - self.pieces[i][j]
             cnt[1].append(cnt_loc1)
             cnt[-1].append(cnt_loc2)
         cnt_full = sum(cnt[1] + cnt[-1])

@@ -13,10 +13,10 @@ from TogyzQumalaq.pytorch.TogyzQumalaqNNet import TogyzQumalaqNNet as togyzqnnet
 args = dotdict({
     'lr': 0.0005,
     'dropout': 0.3,
-    'epochs': 20,
+    'epochs': 30,
     'batch_size': 128,
     'cuda': torch.cuda.is_available(),
-    'num_channels': 512,
+    'num_channels': 256,
 })
 
 

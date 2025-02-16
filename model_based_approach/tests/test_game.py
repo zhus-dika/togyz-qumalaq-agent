@@ -1,51 +1,17 @@
-import gymnasium
-import os, sys
-import numpy as np
-from gymnasium.spaces import Discrete, MultiDiscrete
-from gymnasium import spaces
+import sys
 
-from IPython.display import clear_output
-import time
-from pettingzoo import AECEnv
-from pettingzoo.utils import agent_selector, wrappers
-import matplotlib.pyplot as plt
-from tqdm.notebook import tqdm
-import csv
-import pandas as pd
-#from scipy.interpolate import interp1d
-
-import os
-from typing import Optional, Tuple
-
-from torch.utils.tensorboard import SummaryWriter
-from tianshou.utils import TensorboardLogger
-
-import gymnasium
-import numpy as np
-import torch
-from copy import deepcopy
-from tianshou.data import Collector, VectorReplayBuffer
-from tianshou.env import DummyVectorEnv
-from tianshou.env.pettingzoo_env import PettingZooEnv
-from tianshou.policy import BasePolicy, DQNPolicy, RainbowPolicy, MultiAgentPolicyManager, RandomPolicy
-from tianshou.trainer import OffpolicyTrainer
-from tianshou.utils.net.common import Net
-
-import random
-import copy
 
 NUM_ITERS = 1000
 PLAYS = {"bastaushy": 0, "qostaushy": 0}
 REWARDS = {"bastaushy": [], "qostaushy": []}
+sys.path.append('./')
+from model_based_approach.utils import *
 
-sys.path.append('../../model_based_approach')
-from utils import *
-sys.path.append('../../model_based_approach/TogyzQumalaq')
-from TogyzQumalaqLogic import Board
-from TogyzQumalaqGame import TogyzQumalaqGame
+from model_based_approach.TogyzQumalaq.TogyzQumalaqLogic import Board
+from model_based_approach.TogyzQumalaq.TogyzQumalaqGame import TogyzQumalaqGame
 
 for _ in range(200):
-    game = TogyzQumalaqGame(10, 162)
+    game = TogyzQumalaqGame(10, 34)
     board = Board()
 
     player = 1

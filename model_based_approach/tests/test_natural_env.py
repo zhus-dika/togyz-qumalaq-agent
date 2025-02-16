@@ -1,7 +1,7 @@
 import unittest
 import sys
-sys.path.append('../')
-from TogyzQumalaq.TogyzQumalaqEnv import _get_env
+sys.path.append('./')
+from model_based_approach.TogyzQumalaq.TogyzQumalaqEnv import _get_env
 
 class TestTogyzQumalaqMethods(unittest.TestCase):
 
@@ -212,3 +212,6 @@ class TestTogyzQumalaqMethods(unittest.TestCase):
         obs, rew, term, _, _ = env.env.last()
 
         self.assertTrue(term)
+
+if __name__ == "__main__":
+    unittest.main()

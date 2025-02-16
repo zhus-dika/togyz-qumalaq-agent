@@ -1,4 +1,8 @@
+import math
+import sys
+
 import numpy as np
+sys.path.append('./model_based_approach')
 from TogyzQumalaq.TogyzQumalaqEnv import TogyzQumalaqEnv
 class AverageMeter(object):
     """From https://github.com/pytorch/examples/blob/master/imagenet/main.py"""
@@ -30,20 +34,28 @@ def convertTogyzQumalaq2Board(env):
     '''
     total_qumalaqs = 0
     n_x = 10
-    n_y = 162
+    n_y = 34
     pieces = np.zeros((n_x, n_y))
     # ===================
     # fill pieces by otaular info
     for i, otau in enumerate(env.otaular):
-        for j in range(otau):
+        total_qumalaqs += otau
+        tens = math.floor(otau / 10)
+        units = otau % 10
+        for j in range(tens):
+            if i < 9:
+                if i != env.tuzdyq[1]:
+                    pieces[i + 1][j] = 10
+            else:
+                if i != env.tuzdyq[0] - 9:
+                    pieces[i - 8][n_y - 1 - j] = -10
+        for j in range(tens, tens + units):
             if i < 9:
                 if i != env.tuzdyq[1]:
                     pieces[i + 1][j] = 1
-                    total_qumalaqs += 1
             else:
                 if i != env.tuzdyq[0] - 9:
                     pieces[i - 8][n_y - 1 - j] = -1
-                    total_qumalaqs += 1
     # ===================
     # fill pieces by tuzdyq info
 
@@ -57,14 +69,21 @@ def convertTogyzQumalaq2Board(env):
     stones = env.qazandar[0]
     total_qumalaqs += stones
 
-    for j in range(stones):
-            pieces[0][j] = 1
+    tens = math.floor(stones / 10)
+    units = stones % 10
+    for j in range(tens):
+        pieces[0][j] = 10
+    for j in range(tens, tens + units):
+        pieces[0][j] = 1
+
     stones = env.qazandar[1]
     total_qumalaqs += stones
-
-    for j in range(stones):
+    tens = math.floor(stones / 10)
+    units = stones % 10
+    for j in range(tens):
+        pieces[0][n_y - 1 - j] = -10
+    for j in range(tens, tens + units):
         pieces[0][n_y - 1 - j] = -1
-
     assert total_qumalaqs == 162, f"Error from convertTogyzQumalaq2Board: Total qumalaqs is not equal to 162: {total_qumalaqs} observation: otaular - {env.otaular}, qazandar - {env.qazandar}, tuzdyq - {env.tuzdyq}"
     return pieces
     
@@ -81,11 +100,11 @@ def convertBoard2TogyzQumalaq(board_pieces, player):
 
     for j in range(n_y - 1):
         if board_pieces[0][j] > 0:
-            env.qazandar[0] += 1
-            total_qumalaqs += 1
+            env.qazandar[0] += int(board_pieces[0][j])
+            total_qumalaqs += board_pieces[0][j]
         if board_pieces[0][n_y - 1 - j] < 0:
-            env.qazandar[1] += 1
-            total_qumalaqs += 1
+            env.qazandar[1] -= int(board_pieces[0][n_y - 1 - j])
+            total_qumalaqs -= board_pieces[0][n_y - 1 - j]
     # ==================
     # fill tuzdyq
     for i in range(1, n_x):
@@ -97,15 +116,19 @@ def convertBoard2TogyzQumalaq(board_pieces, player):
 
     for i in range(1, n_x):
         cnt = 0
+        stones = 0
         while board_pieces[i][cnt] > 0:
+            stones += board_pieces[i][cnt]
             cnt += 1
 
-        env.otaular[i - 1] = cnt
-        total_qumalaqs += cnt
+        env.otaular[i - 1] = int(stones)
+        total_qumalaqs += stones
         cnt = 0
+        stones = 0
         while board_pieces[i][n_y - 1 - cnt] < 0:
-                cnt += 1
-        env.otaular[i + 8] = cnt
-        total_qumalaqs += cnt
+            stones -= board_pieces[i][n_y - 1 - cnt]
+            cnt += 1
+        env.otaular[i + 8] = int(stones)
+        total_qumalaqs += stones
     assert total_qumalaqs == 162, f"Error from convertBoard2TogyzQumalaq: Total qumalaqs is not equal to 162: {total_qumalaqs} observation: otaular - {env.otaular}, qazandar - {env.qazandar}, tuzdyq - {env.tuzdyq}"
     return env
