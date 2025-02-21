@@ -114,5 +114,6 @@ class Arena():
                 twoWon += 1
             else:
                 draws += 1
-
+        print("Arena.playGames (2)")
+        print("oneWon:", oneWon, "twoWon:", twoWon, "draws:", draws)
         return oneWon, twoWon, draws

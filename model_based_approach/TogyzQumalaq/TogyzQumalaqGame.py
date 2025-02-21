@@ -97,10 +97,10 @@ class TogyzQumalaqGame(Game):
         l = [(board, pi)]  # Добавляем оригинальную доску
 
         # Полностью отражаем доску по вертикальной оси
-        mirrored_board = np.fliplr(board) * -1
+        # mirrored_board = np.fliplr(board) * -1
 
         # pi не изменяется
-        l.append((mirrored_board, pi))
+        # l.append((mirrored_board, pi))
 
         return l
 
