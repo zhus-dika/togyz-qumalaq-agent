@@ -12,7 +12,7 @@ from TogyzQumalaq.pytorch.TogyzQumalaqNNet import TogyzQumalaqNNet as togyzqnnet
 
 
 args = dotdict({
-    'num_channels': 512,  # number of channels in layers
+    'num_channels': 1024,  # number of channels in layers
     'residual_blocks': 15,  # number of residual blocks (can be increased to 20)
     'lr': 0.001,  # learning rate
     'dropout': 0.3,  # dropout probability
