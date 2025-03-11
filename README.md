@@ -41,9 +41,13 @@ Youtube videos -
 ## Environment 
 PettingZoo https://pettingzoo.farama.org/
 
-## Self-play training
+## Self-play training (DQN)
 
 Tianshou https://tianshou.org/en/stable/index.html#
+
+## Self-play training (MCTS Alpha Zero)
+
+https://github.com/suragnair/alpha-zero-general
 
 ## Recording some frames: playing two trained DQN agents
 
