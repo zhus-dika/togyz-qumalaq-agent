@@ -12,14 +12,14 @@ from TogyzQumalaq.pytorch.TogyzQumalaqNNet import TogyzQumalaqNNet as togyzqnnet
 
 
 args = dotdict({
-    'num_channels': 1024,  # number of channels in layers
-    'residual_blocks': 15,  # number of residual blocks (can be increased to 20)
+    'num_channels': 256,  # number of channels in layers
+    'residual_blocks': 20,  # number of residual blocks (can be increased to 20)
     'lr': 0.001,  # learning rate
     'dropout': 0.3,  # dropout probability
-    'epochs': 15,  # number of epochs
-    'batch_size': 64,  # mini-batch size
+    'epochs': 20,  # number of epochs
+    'batch_size': 512,  # mini-batch size
     'cuda': torch.cuda.is_available(),
-    'numMCTSSims': 100,  # number of MCTS simulations
+    'numMCTSSims': 300,  # number of MCTS simulations
 })
 
 
@@ -38,8 +38,9 @@ class NNetWrapper(NeuralNet):
         """
         optimizer = optim.Adam(self.nnet.parameters())
 
+        print('cuda is available:', args['cuda'])
         for epoch in range(args.epochs):
-            print('cuda is available:', args['cuda'])
+
             print('EPOCH ::: ' + str(epoch + 1))
             self.nnet.train()
             pi_losses = AverageMeter()
