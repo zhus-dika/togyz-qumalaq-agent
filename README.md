@@ -58,14 +58,22 @@ https://github.com/suragnair/alpha-zero-general
 ## Running guide
 Python version >= 3.11
 
-Installing packages
+Create virtual env
+```
+python -m venv 9qumalaq
+```
 
+Activate virtual env
+```
+source 9qumalaq/bin/activate
+```
+
+Installing packages
 ```
 pip install -r requirements.txt
 ```
 
 Running web app
-
 ```
 python app/app.py
 ```
