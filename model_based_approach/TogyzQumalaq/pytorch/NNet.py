@@ -13,13 +13,12 @@ from TogyzQumalaq.pytorch.TogyzQumalaqNNet import TogyzQumalaqNNet as togyzqnnet
 
 args = dotdict({
     'num_channels': 256,  # number of channels in layers
-    'residual_blocks': 20,  # number of residual blocks (can be increased to 20)
+    'residual_blocks': 30,  # number of residual blocks (can be increased to 20)
     'lr': 0.001,  # learning rate
     'dropout': 0.3,  # dropout probability
     'epochs': 20,  # number of epochs
-    'batch_size': 512,  # mini-batch size
+    'batch_size': 64,  # mini-batch size
     'cuda': torch.cuda.is_available(),
-    'numMCTSSims': 300,  # number of MCTS simulations
 })
 
 
@@ -36,19 +35,20 @@ class NNetWrapper(NeuralNet):
         """
         examples: list of examples, each example is of form (board, pi, v)
         """
-        optimizer = optim.Adam(self.nnet.parameters())
+        optimizer = optim.SGD(self.nnet.parameters(), lr=args.lr, momentum=0.9, weight_decay=1e-4)
+        scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs, eta_min=0.0001)
 
         print('cuda is available:', args['cuda'])
         for epoch in range(args.epochs):
+            print(f'EPOCH ::: {epoch + 1}, Learning Rate: {scheduler.get_last_lr()[0]}')
 
-            print('EPOCH ::: ' + str(epoch + 1))
             self.nnet.train()
             pi_losses = AverageMeter()
             v_losses = AverageMeter()
 
             batch_count = int(len(examples) / args.batch_size)
-
             t = tqdm(range(batch_count), desc='Training Net')
+
             for _ in t:
                 sample_ids = np.random.randint(len(examples), size=args.batch_size)
                 boards, pis, vs = list(zip(*[examples[i] for i in sample_ids]))
@@ -56,25 +56,24 @@ class NNetWrapper(NeuralNet):
                 target_pis = torch.FloatTensor(np.array(pis))
                 target_vs = torch.FloatTensor(np.array(vs).astype(np.float64))
 
-                # predict
                 if args.cuda:
-                    boards, target_pis, target_vs = boards.contiguous().cuda(), target_pis.contiguous().cuda(), target_vs.contiguous().cuda()
+                    boards, target_pis, target_vs = boards.cuda(), target_pis.cuda(), target_vs.cuda()
 
-                # compute output
                 out_pi, out_v = self.nnet(boards)
                 l_pi = self.loss_pi(target_pis, out_pi)
                 l_v = self.loss_v(target_vs, out_v)
                 total_loss = l_pi + l_v
 
-                # record loss
                 pi_losses.update(l_pi.item(), boards.size(0))
                 v_losses.update(l_v.item(), boards.size(0))
                 t.set_postfix(Loss_pi=pi_losses, Loss_v=v_losses)
 
-                # compute gradient and do SGD step
                 optimizer.zero_grad()
                 total_loss.backward()
                 optimizer.step()
+
+            # Обновляем learning rate
+            scheduler.step()
 
     def predict(self, board):
         """
