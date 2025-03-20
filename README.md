@@ -45,22 +45,25 @@ PettingZoo https://pettingzoo.farama.org/
 
 Tianshou https://tianshou.org/en/stable/index.html#
 
-## Self-play training (MCTS Alpha Zero)
-
-https://github.com/suragnair/alpha-zero-general
-
-The board for the game is implemented as in Figure below
-
-![Alt Text](https://github.com/zhus-dika/togyz-qumalaq-agent/blob/main/data/9qumalaq_init_board_mcts.png)
-
-When Tuzdyk is captured, the cell is marked with a symbol representing the corresponding player. For example, in Figure
-
-![Alt Text](https://github.com/zhus-dika/togyz-qumalaq-agent/blob/main/data/9qumalaq_tuzdyk_board_mcts.png)
-## Recording some frames: playing two trained DQN agents
+### Recording some frames: playing two trained DQN agents
 
 ![Alt Text](https://github.com/zhus-dika/togyz-qumalaq-agent/blob/main/data/6vs5.gif)
 
 (spoiler: Qostaushy will win :monkey:)
+
+## Self-play training (MCTS Alpha Zero)
+
+https://github.com/suragnair/alpha-zero-general
+
+### Implementation game board for MCTS
+
+The board for the game is implemented as in Figure below
+
+<img src="https://github.com/zhus-dika/togyz-qumalaq-agent/blob/main/data/9qumalaq_init_board_mcts.png" alt="drawing" width="450"/>
+
+When Tuzdyk is captured, the cell is marked with a symbol representing the corresponding player. For example, in Figure
+
+<img src="https://github.com/zhus-dika/togyz-qumalaq-agent/blob/main/data/9qumalaq_tuzdyk_board_mcts.png" alt="drawing" width="450"/>
 
 ## Running guide
 Python version >= 3.11
