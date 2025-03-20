@@ -49,6 +49,13 @@ Tianshou https://tianshou.org/en/stable/index.html#
 
 https://github.com/suragnair/alpha-zero-general
 
+The board for the game is implemented as in Figure below
+
+![Alt Text](https://github.com/zhus-dika/togyz-qumalaq-agent/blob/main/data/9qumalaq_init_board_mcts.png)
+
+When Tuzdyk is captured, the cell is marked with a symbol representing the corresponding player. For example, in Figure
+
+![Alt Text](https://github.com/zhus-dika/togyz-qumalaq-agent/blob/main/data/9qumalaq_tuzdyk_board_mcts.png)
 ## Recording some frames: playing two trained DQN agents
 
 ![Alt Text](https://github.com/zhus-dika/togyz-qumalaq-agent/blob/main/data/6vs5.gif)

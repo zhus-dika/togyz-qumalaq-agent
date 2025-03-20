@@ -16,7 +16,7 @@ args = dotdict({
     'residual_blocks': 30,  # number of residual blocks (can be increased to 20)
     'lr': 0.001,  # learning rate
     'dropout': 0.3,  # dropout probability
-    'epochs': 20,  # number of epochs
+    'epochs': 16,  # number of epochs
     'batch_size': 64,  # mini-batch size
     'cuda': torch.cuda.is_available(),
 })
