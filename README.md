@@ -2,9 +2,9 @@
 
 Source Python code for the paper *Applications of the Reinforcement Learning Technique Self-Play for Competitive Environments in Kazakh National Games*
 
-**Authors**: Dinara Zhussupova
+**Author**: Dinara Zhussupova
 
-Training an agent to play the game Togyzkumalak https://en.wikipedia.org/wiki/Toguz_korgol
+Source code for training an agent to play the game Togyzkumalak https://en.wikipedia.org/wiki/Toguz_korgol
 
 
 ## Rules of the game in Kazakh
@@ -41,30 +41,6 @@ Youtube videos -
 ## Environment 
 PettingZoo https://pettingzoo.farama.org/
 
-## Self-play training (DQN)
-
-Tianshou https://tianshou.org/en/stable/index.html#
-
-### Recording some frames: playing two trained DQN agents
-
-![Alt Text](https://github.com/zhus-dika/togyz-qumalaq-agent/blob/main/data/6vs5.gif)
-
-(spoiler: Qostaushy will win :monkey:)
-
-## Self-play training (MCTS Alpha Zero)
-
-https://github.com/suragnair/alpha-zero-general
-
-### Implementation game board for MCTS
-
-The board for the game is implemented as in Figure below
-
-<img src="https://github.com/zhus-dika/togyz-qumalaq-agent/blob/main/data/9qumalaq_init_board_mcts.png" alt="drawing" width="450"/>
-
-When Tuzdyk is captured, the cell is marked with a symbol representing the corresponding player. For example, in Figure
-
-<img src="https://github.com/zhus-dika/togyz-qumalaq-agent/blob/main/data/9qumalaq_tuzdyk_board_mcts.png" alt="drawing" width="450"/>
-
 ## Running guide
 Python version >= 3.11
 
@@ -78,17 +54,41 @@ Activate virtual env
 source 9qumalaq/bin/activate
 ```
 
-Installing packages
+Install packages
 ```
 pip install -r requirements.txt
 ```
+## Self-play training (DQN)
 
-Running web app
+Tianshou https://tianshou.org/en/stable/index.html#
+
+### Recording some frames: playing two trained DQN agents
+
+![Alt Text](https://github.com/zhus-dika/togyz-qumalaq-agent/blob/main/data/6vs5.gif)
+
+(spoiler: Qostaushy will win :monkey:)
+
+### Run web app - play as Bataushy with the DQN agent
+
 ```
 python app/app.py
 ```
 
-Running tests for environment
+## Self-play training (MCTS Alpha Zero)
+
+https://github.com/suragnair/alpha-zero-general
+
+### Implementation game board for MCTS
+
+The board for the game is implemented as in the Figure below
+
+<img src="https://github.com/zhus-dika/togyz-qumalaq-agent/blob/main/data/9qumalaq_init_board_mcts.png" alt="drawing" width="450"/>
+
+When Tuzdyk is captured, the cell is marked with a symbol representing the corresponding player. For example, in Figure below
+
+<img src="https://github.com/zhus-dika/togyz-qumalaq-agent/blob/main/data/9qumalaq_tuzdyk_board_mcts.png" alt="drawing" width="450"/>
+
+### Run tests for the environment
 
 ```
 python model_based_approach/tests/test_env.py
@@ -96,25 +96,23 @@ python model_based_approach/tests/test_env.py
 python model_based_approach/tests/test_natural_env.py
 ```
 
-Runnning game with random players for testing asserts in main codes
+### Run the game with random players for testing asserts in main codes
 
 ```
 python model_based_approach/tests/test_game.py
 ```
 
-Training agents
+### Train agents
 
 ```
 python model_based_approach/main.py
 ```
 
-Playing human vs trained agent
+### Play vs trained MCTS agent
 
 ```
 python model_based_approach/pit.py
 ```
-
-
 ## Experiments
 
 https://docs.google.com/spreadsheets/d/12MiySvyxko9UPw_rFsr3w9lILuD7jYY2vgqoScxDRZQ/edit?usp=sharing
