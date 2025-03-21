@@ -3,7 +3,6 @@ import numpy as np
 from gymnasium.spaces import Discrete, MultiDiscrete
 from gymnasium import spaces
 
-from IPython.display import clear_output
 import time
 from pettingzoo import AECEnv
 from pettingzoo.utils import agent_selector, wrappers
@@ -15,26 +14,7 @@ NUM_ITERS = 400
 PLAYS = {"bastaushy": 0, "qostaushy": 0}
 
 
-def env(render_mode=None):
-    """
-    The env function often wraps the environment in wrappers by default.
-    You can find full documentation for these methods
-    elsewhere in the developer documentation.
-    """
-    internal_render_mode = render_mode if render_mode != "ansi" else "human"
-    env = TogyzQumalaq(render_mode=internal_render_mode)
-    # This wrapper is only for environments which print results to the terminal
-    if render_mode == "ansi":
-        env = wrappers.CaptureStdoutWrapper(env)
-    # this wrapper helps error handling for discrete action spaces
-    env = wrappers.AssertOutOfBoundsWrapper(env)
-    # Provides a wide vareity of helpful user errors
-    # Strongly recommended
-    env = wrappers.OrderEnforcingWrapper(env)
-    return env
-
-
-class TogyzQumalaq(AECEnv):
+class TogyzQumalaqEnv(AECEnv):
     """
     The "name" metadata allows the environment to be pretty printed.
     """
@@ -42,7 +22,7 @@ class TogyzQumalaq(AECEnv):
     metadata = {
         "render_modes": ["ansi", "human"],
         "name": "togyzqumalaq_v0"
-        }
+    }
 
     def __init__(self, render_mode=None):
         """
@@ -65,7 +45,7 @@ class TogyzQumalaq(AECEnv):
             i: spaces.Dict(
                 {
                     "observation":
-                        MultiDiscrete([100] * 18 + [9] * 2 + [82] * 2),
+                        MultiDiscrete([100] * 18 + [10] * 2 + [162] * 2 + [2]),
                     "action_mask":
                         Discrete(9),
                 }
@@ -102,58 +82,67 @@ class TogyzQumalaq(AECEnv):
             points_bastaushy_x = np.array([i * 2 for i in range(10)])
             points_bastaushy_y = np.array([i % 5 for i in range(50)])
 
+            qazandar = self.qazandar
+            otaular = self.otaular
+            tuzdyq = self.tuzdyq
             x = np.arange(-3, 225, 1)
             y = -1
 
             text_kwargs = dict(ha='center', va='center', fontsize=12)
-            plt.figure(figsize=(17, 6))
+            plt.figure(figsize=(15, 4))
 
             for i in range(9):
                 # qostaushy's part
-                plt.scatter(
-                    np.repeat(points_bastaushy_x + 25 * i, 5)[:self.otaular[17 - i]], points_bastaushy_y[:self.otaular[17 - i]], marker='o')
-                # horizontal line
-                plt.plot(x, np.repeat(y, len(x)))
+                plt.scatter(np.repeat(
+                    points_bastaushy_x + 25 * i, 5)[:otaular[17 - i]],
+                            points_bastaushy_y[:otaular[17 - i]], marker='o')
                 # vertical lines
-                plt.plot(np.repeat(25 * i - 2, len(x)), np.arange(-7, 5, 12 / len(x)))
+                plt.plot(np.repeat(25 * i - 2, len(x)),
+                         np.arange(-7, 5, 12 / len(x)))
                 # bastaushy's part
-                plt.scatter(np.repeat(points_bastaushy_x + 25 * i, 5)[:self.otaular[i]],
-                            points_bastaushy_y[:self.otaular[i]] - 6, marker='o')
+                plt.scatter(np.repeat(points_bastaushy_x + 25 * i, 5)[:otaular[i]],
+                            points_bastaushy_y[:otaular[i]] - 6, marker='o')
 
+            # horizontal line
+            x_lims = np.arange(-3, 245, 1)
+            plt.plot(x_lims, np.repeat(y, len(x_lims)))
             # last vertical line
-            plt.plot(np.repeat(25 * 9 - 2, len(x)), np.arange(-7, 5, 12 / len(x)))
+            plt.plot(np.repeat(25 * 9 - 2, 13),
+                     np.arange(-7, 6, 1))
 
             for i in range(9):
                 # bastaushy's qumalaqtar
                 plt.text(25 * i + 10, -7,
-                         f'{i} ({self.otaular[i]})', **text_kwargs)
+                         f'{i} ({otaular[i]})', **text_kwargs)
                 # qostaushy's qumalaqtar
                 plt.text(25 * i + 10, 5,
-                         f'{17 - i} ({self.otaular[17 - i]})', **text_kwargs)
+                         f'{17 - i} ({otaular[17 - i]})', **text_kwargs)
             # bastaushy qazan's qumalaqtar
-            plt.text(230, -4,
-                     f'qazan: {self.qazandar[0]}', **text_kwargs)
+            plt.text(235, -4,
+                     f'qazan: {qazandar[0]}', **text_kwargs)
             # qostaushy qazan's qumalaqtar
-            plt.text(230, 2,
-                     f'qazan: {self.qazandar[1]}', **text_kwargs)
+            plt.text(235, 2,
+                     f'qazan: {qazandar[1]}', **text_kwargs)
             # bastaushy tuzdyq's qumalaqtar
-            plt.text(230, -6,
-                     f'tuzdyq: {self.tuzdyq[0]}', **text_kwargs)
+            plt.text(235, -6,
+                     f'tuzdyq: {tuzdyq[0]}', **text_kwargs)
             # qostaushy tuzdyq's qumalaqtar
-            plt.text(230, 0,
-                     f'tuzdyq: {self.tuzdyq[1]}', **text_kwargs)
+            plt.text(235, 0,
+                     f'tuzdyq: {tuzdyq[1]}', **text_kwargs)
+            plt.xticks([])
+            plt.yticks([])
             plt.show()
         else:
             if self.render_mode == "human":
                 print("Game over")
-        time.sleep(2)
-        clear_output(True)
+        time.sleep(1)
+        # clear_output()
 
     def _legal_moves(self, agent):
         cur_player = self.possible_agents.index(agent)
         opp_player = (cur_player + 1) % 2
-        return [item for item in range(9 * cur_player, (cur_player + 1) * 9)
-                if self.tuzdyq[opp_player] != item and self.otaular[item] > 0]
+        return [item for item in range(9) if
+                self.tuzdyq[opp_player] != item + cur_player * 9 and self.otaular[item + cur_player * 9] > 0]
 
     def observe(self, agent):
         """
@@ -164,12 +153,11 @@ class TogyzQumalaq(AECEnv):
         # observation of one agent is the previous state of the other
         legal_moves = self._legal_moves(agent) if agent == self.agent_selection else []
         action_mask = np.zeros(9, "int8")
-        if self.possible_agents.index(agent) == 1:
-            legal_moves = [i - 9 for i in legal_moves]
+
         for i in legal_moves:
             action_mask[i] = 1
         observation = tuple(
-            self.otaular + self.tuzdyq + self.qazandar
+            self.otaular + self.tuzdyq + self.qazandar + [self.possible_agents.index(self.agent_selection)]
         )
         return {"observation": observation, "action_mask": action_mask}
 
@@ -204,7 +192,7 @@ class TogyzQumalaq(AECEnv):
         self.infos = {agent: {} for agent in self.agents}
         self.num_moves = 0
         observation = tuple(
-            self.otaular + self.tuzdyq + self.qazandar
+            self.otaular + self.tuzdyq + self.qazandar + [0]
         )
         self.observations = {agent: observation for agent in self.agents}
         """
@@ -226,15 +214,15 @@ class TogyzQumalaq(AECEnv):
         And any internal state used by observe() or render()
         """
         if (
-            self.terminations[self.agent_selection]
-            or self.truncations[self.agent_selection]
+                self.terminations[self.agent_selection]
+                or self.truncations[self.agent_selection]
         ):
             # handles stepping an agent which is already dead
             # accepts a None action for the one agent, and moves the agent_selection to
             # the next dead agent,  or if there are no more dead agents, to the next live agent
             self._was_dead_step(action)
             return
-
+        self.rewards = {agent: 0 for agent in self.agents}
         cur_player = self.possible_agents.index(self.agent_selection)
         opp_player = (cur_player + 1) % 2
         self.num_moves += 1
@@ -256,16 +244,20 @@ class TogyzQumalaq(AECEnv):
             self.otaular[action] -= 1
         else:
             i = 1
-            while self.otaular[action] > 1:
+            coef = 1
+            if self.otaular[action] / 18 > 1:
+                coef = int(self.otaular[action] / 18) + 1
+            while self.otaular[action] > coef:
                 self.otaular[self.direction[cur_player][(idx_action + i) % 18]] += 1
                 self.otaular[action] -= 1
                 i += 1
         # check tuzdyq & add rewards to qazandar
         reward = 0
-        if self.check_tuzdyq(self.agent_selection, action):
+        if self.tuzdyq[cur_player] < 0 and self.check_tuzdyq(self.agent_selection, action, num_qumalaq):
             reward += 3
             if self.render_mode == "human":
                 print(f'{self.agent_selection} won tuzdyq {reward}')
+
         else:
 
             if num_qumalaq > 1:
@@ -279,35 +271,64 @@ class TogyzQumalaq(AECEnv):
                 if self.render_mode == "human":
                     print(f'{self.agent_selection} won {reward}')
                 self.otaular[last_otau] = 0
-            if (self.tuzdyq[cur_player] >= 0 and
-                    self.otaular[self.tuzdyq[cur_player]] > 0):
-                reward += self.otaular[self.tuzdyq[cur_player]]
-                if self.render_mode == "human":
-                    print(f'{self.agent_selection} won tuzdyq {self.otaular[self.tuzdyq[cur_player]]}')
-                self.otaular[self.tuzdyq[cur_player]] = 0
+
+        # add rewards for current player's tuzdyq
+        if (self.tuzdyq[cur_player] >= 0 and
+                self.otaular[self.tuzdyq[cur_player]] > 0):
+            reward += self.otaular[self.tuzdyq[cur_player]]
+            if self.render_mode == "human":
+                print(f'{self.agent_selection} won tuzdyq {self.otaular[self.tuzdyq[cur_player]]}')
+            self.otaular[self.tuzdyq[cur_player]] = 0
+        # add rewards for opponent's tuzdyq
+        if (self.tuzdyq[opp_player] >= 0 and
+                self.otaular[self.tuzdyq[opp_player]] > 0):
+            self.rewards[self.agent_selection] -= self.otaular[self.tuzdyq[opp_player]]
+            self.rewards[self.possible_agents[opp_player]] += self.otaular[self.tuzdyq[opp_player]]
+            self.qazandar[opp_player] += self.otaular[self.tuzdyq[opp_player]]
+            self.otaular[self.tuzdyq[opp_player]] = 0
+
         if self.render_mode == "human":
             print(f'{self.agent_selection} won total {reward}')
         self.qazandar[cur_player] += reward
+
+        # ******* awarding a rewards from otaular **********
         self.rewards[self.agent_selection] += reward
+        self.rewards[self.possible_agents[opp_player]] -= reward
+
         # check if there is a winner
         winner = self.check_for_winner()
         if winner:
             self.terminations = {i: True for i in self.agents}
             if self.render_mode == "human":
                 print(f'{self.agent_selection} won the game!!!')
+
+            # ******* awarding a reward for winning a game **********
+            self.rewards[self.agent_selection] += self.qazandar[opp_player]
+            self.rewards[self.possible_agents[opp_player]] -= self.qazandar[opp_player]
+            for i in range(9):
+                self.rewards[self.agent_selection] += self.otaular[i + 9 * opp_player]
+                self.rewards[self.possible_agents[opp_player]] -= self.otaular[i + 9 * opp_player]
+
         # selects the next agent.
         self.agent_selection = self._agent_selector.next()
         # Adds .rewards to ._cumulative_rewards
         self._accumulate_rewards()
 
+        total_rewards = sum(self.rewards.values())
+        assert total_rewards == 0, f"Error: Total reward is not zero: {total_rewards}"
+        total_qumalaqs = 0
+        for i in self.otaular:
+            total_qumalaqs += i
+        for i in self.qazandar:
+            total_qumalaqs += i
+        assert total_qumalaqs == 162, f"Error: Total qumalaqs is not equal to 162: {total_qumalaqs} observation: otaular - {self.otaular}, qazandar - {self.qazandar}, tuzdyq - {self.tuzdyq}"
         if self.render_mode == "human":
             self.render()
 
-    def check_tuzdyq(self, agent, action):
+    def check_tuzdyq(self, agent, action, num_qumalaq):
         cur_player = self.possible_agents.index(agent)
         opp_player = (cur_player + 1) % 2
         idx = self.direction[cur_player].index(action)
-        num_qumalaq = self.otaular[action]
 
         if num_qumalaq > 1:
             last_otau = self.direction[cur_player][(idx + num_qumalaq - 1) % 18]
@@ -352,6 +373,7 @@ class TogyzQumalaq(AECEnv):
 
 def _get_env(render_mode=None):
     """This function is needed to provide callables for DummyVectorEnv."""
+
     def env(render_mode=None):
         """
         The env function often wraps the environment in wrappers by default.
@@ -360,7 +382,7 @@ def _get_env(render_mode=None):
         """
         internal_render_mode = render_mode \
             if render_mode != "ansi" else "human"
-        env = TogyzQumalaq(render_mode=internal_render_mode)
+        env = TogyzQumalaqEnv(render_mode=internal_render_mode)
         # This wrapper is only for environments
         # which print results to the terminal
         if render_mode == "ansi":
@@ -371,4 +393,5 @@ def _get_env(render_mode=None):
         # Strongly recommended
         env = wrappers.OrderEnforcingWrapper(env)
         return env
+
     return PettingZooEnv(env(render_mode=render_mode))

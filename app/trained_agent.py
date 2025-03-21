@@ -6,9 +6,9 @@ import environment
 model = 0
 env = environment._get_env()
 net = Net(
-            state_shape=(22,),
+            state_shape=(23,),
             action_shape=env.action_space.shape or env.action_space.n,
-            hidden_sizes=[256, 512, 256],
+            hidden_sizes=[2048,4096,4096,2048],
             device="cuda" if torch.cuda.is_available() else "cpu",
         ).to("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -22,5 +22,5 @@ agent_learned = DQNPolicy(
         ).to("cuda" if torch.cuda.is_available() else "cpu")
 
 agent_learned.load_state_dict(
-    torch.load(f"../models/dqn/zero-sum/qostaushy/policy_dqn_256x512x256_{model}.pth")
+    torch.load(f"trained_models/dqn/policy_dqn_2048x4096x4096x2048_4.pth")
 )

@@ -110,7 +110,7 @@ def make_human_action(n_clicks, human_act, n_clicks_reset):
     tuzdyq = obs['observation'][18:20]
     otaular = list(obs['observation'][:18])
 
-    qazandar = obs['observation'][20:]
+    qazandar = obs['observation'][20:22]
     fig = observation.render(otaular=otaular, tuzdyq=tuzdyq, qazandar=qazandar)
 
     # Save it to a temporary buffer.
@@ -152,7 +152,7 @@ def make_agent_action(n_clicks, n_clicks_reset):
                                     mask=[obs['action_mask']]),
                           info='?')
             agent_learned.eval()
-            logits = agent_learned(batch=batch)['logits'].detach().numpy()
+            logits = agent_learned(batch=batch)['logits'].cpu().detach().numpy()
             max_val = -1e+21
             action = -1
             for idx, logit in enumerate(logits[0]):
@@ -171,7 +171,7 @@ def make_agent_action(n_clicks, n_clicks_reset):
         tuzdyq = obs['observation'][18:20]
         otaular = list(obs['observation'][:18])
 
-        qazandar = obs['observation'][20:]
+        qazandar = obs['observation'][20:22]
         fig = observation.render(otaular=otaular,
                                  tuzdyq=tuzdyq,
                                  qazandar=qazandar)
@@ -187,4 +187,4 @@ def make_agent_action(n_clicks, n_clicks_reset):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True, port=8002)
+    app.run(debug=True, port=8002)
