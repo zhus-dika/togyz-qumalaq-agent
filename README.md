@@ -68,7 +68,7 @@ Tianshou https://tianshou.org/en/stable/index.html#
 
 (spoiler: Qostaushy will win :monkey:)
 
-### Run web app - play as Bataushy with the DQN agent
+### Run web app - play as Bastaushy with the DQN agent
 
 ```
 python app/app.py
