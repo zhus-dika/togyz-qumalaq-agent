@@ -1,6 +1,6 @@
 # togyz-qumalaq-agent
 
-Source Python code for the paper *Applying Self-Play Reinforcement Learning to Kazakh National Board Games: A Case Study on Togyzkumalak*
+Source Python code for the paper *Applying Self-Play Reinforcement Learning to Kazakh National Board Games: A Case Study on Togyzkumalak* https://doi.org/10.26577/jpcsit4220261
 
 **Author**: Dinara Zhussupova
 
